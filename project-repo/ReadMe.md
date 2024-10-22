@@ -60,10 +60,10 @@ Once you submit a pull request, your project will be reviewed by the repository 
 
 ## License
 
-This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+This repository is licensed under the MIT License. 
 
 ## Contact
 
-If you have any questions, feel free to open an issue or contact the repository maintainers.
+If you have any questions, feel free to open an issue or contact Olumayowa.
 
 Happy Networking!
