@@ -1,13 +1,13 @@
-# Networking Lab | Project 17  Documentation
+# Remote Office Network Lab Documentation
 
 ### Table of Contents
-- [Networking Lab | Project 17  Documentation](#networking-lab--project-17--documentation)
+- [Remote Office Network Lab Documentation](#remote-office-network-lab-documentation)
     - [Table of Contents](#table-of-contents)
     - [1. Objectives](#1-objectives)
     - [2. Project Overview:](#2-project-overview)
     - [3. Topology](#3-topology)
     - [4. IP Addressing Scheme](#4-ip-addressing-scheme)
-    - [5. VLAN CONFIGURATION](#5-vlan-configuration)
+    - [5. Vlan Configuration](#5-vlan-configuration)
     - [6. Spanning Tree (STP) Configurations :](#6-spanning-tree-stp-configurations-)
     - [7. HSRP (Hot Standby Router Protocol) Configuration :](#7-hsrp-hot-standby-router-protocol-configuration-)
     - [8. Routing Protocol](#8-routing-protocol)
@@ -20,7 +20,7 @@
 
 ### 1. Objectives
 
-To create a seccure site-to-site communication between WAN sites while each site prioritizes redundancy and network availabity. 
+To create a secure site-to-site communication between Wide Area Network office sites while each site prioritizes redundancy and network availabity. 
 
 ### 2. Project Overview:
 
@@ -31,7 +31,7 @@ Each site is connected via an IPSec VPN through an ISP, ensuring secure communic
 ![alt text](snapshots/TOPOLOGY.jpg)
 
 
-This network design encompasses three interconnected sites:
+This network design encompasses three interconnected offices:
 1. Headquarters (HQ)
 2. Branch 1 (BR1)
 3. Branch 2 (BR2)
@@ -57,7 +57,7 @@ As shown in the topology image, Each site including the HQ has a router, 2 L3 di
 **NB**: See the [project file](Project_17.pkt) for indepth addressing details as VRLSM was used where neccessary  
 
 
-### 5. VLAN CONFIGURATION 
+### 5. Vlan Configuration 
 ___
 
 VLANs are crucial for segmenting network traffic, improving security by isolating traffic between different departments and reducing broadcast domains. In this setup, VLANs are also used to enhance network redundancy and efficiency in collaboration with technologies like HSRP and STP.
@@ -181,7 +181,7 @@ For detailed configuration, refer to the [project file](Project_17.pkt)
 
 
 ### 12. Conclusion 
-In this project, we successfully designed and configured a secure, redundant WAN network to ensure high availability and performance across multiple sites. The key elements of the design included:
+In this project, we successfully designed and configured a secure, redundant WAN network that ensures high availability and performance across multiple sites. The key elements of the design included:
 
 **IPSec VPN:** Secure communication was established between the HQ, Branch 1, and Branch 2 using IPSec VPN tunnels, ensuring safe and encrypted data transmission over the WAN.
 
@@ -189,11 +189,11 @@ In this project, we successfully designed and configured a secure, redundant WAN
 
 **Spanning Tree Protocol (STP):** We configured spanning tree to ensure redundancy and prevent loops in the network. By designating primary and secondary root bridges for each VLAN, the network was made resilient to link failures.
 
-**HSRP** Hot Standby Router Protocol (HSRP) was implemented for gateway redundancy. This ensures uninterrupted service in case of router failure, with one router acting as the active gateway and the other as standby for each VLAN.
+**HSRP:** Hot Standby Router Protocol (HSRP) was implemented for gateway redundancy. This ensures uninterrupted service in case of router failure, with one router acting as the active gateway and the other as standby for each VLAN.
 
 **Wireless LAN Controller (WLC):** The centralized WLC at HQ effectively manages wireless access points at all branches, streamlining wireless network administration and ensuring consistent wireless service across sites.
 
-**Failover and Redundancy:** Both HSRP and STP configurations were put in place to ensure failover capabilities. In case of router or link failure, the network automatically switches to a standby device, ensuring no disruption in service.
+**Failover and Redundancy:** DHCP, HSRP and STP configurations were put in place to ensure failover capabilities. In case of router or link failure, the network automatically switches to a standby device, ensuring no disruption in service.
 
 ### 13. Project Limitations:
 
