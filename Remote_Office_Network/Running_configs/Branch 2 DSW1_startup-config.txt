@@ -1,0 +1,207 @@
+!
+version 12.2(37)SE1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname BR2_DSW1
+!
+!
+!
+ip dhcp excluded-address 192.168.3.1 192.168.3.3
+ip dhcp excluded-address 192.168.3.9 192.168.3.11
+ip dhcp excluded-address 192.168.3.17 192.168.3.19
+ip dhcp excluded-address 192.168.3.26 192.168.3.27
+ip dhcp excluded-address 192.168.3.34 192.168.3.35
+!
+ip dhcp pool vlan100
+ network 192.168.3.0 255.255.255.248
+ default-router 192.168.3.3
+ip dhcp pool vlan200
+ network 192.168.3.8 255.255.255.248
+ default-router 192.168.3.11
+ip dhcp pool vlan300
+ network 192.168.3.16 255.255.255.248
+ default-router 192.168.3.19
+ip dhcp pool vlan400
+ network 192.168.3.24 255.255.255.248
+ default-router 192.168.3.27
+ip dhcp pool vlan500
+ network 192.168.3.32 255.255.255.248
+ default-router 192.168.3.35
+ option 43 ip 192.168.1.52
+!
+!
+ip routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree vlan 100,200,300 priority 24576
+spanning-tree vlan 400-401,500,999 priority 28672
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode desirable
+!
+interface FastEthernet0/2
+ switchport trunk allowed vlan 100,200,500
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/3
+ switchport trunk allowed vlan 300,400-401,500
+ switchport trunk encapsulation dot1q
+!
+interface FastEthernet0/4
+ no switchport
+ ip address 10.10.30.1 255.255.255.252
+ ip ospf network point-to-point
+ ip ospf priority 1
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/5
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode desirable
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan100
+ mac-address 0005.5e6c.e601
+ ip address 192.168.3.1 255.255.255.248
+ standby version 2
+ standby 100 ip 192.168.3.3
+ standby 100 priority 150
+ standby 100 preempt
+!
+interface Vlan200
+ mac-address 0005.5e6c.e602
+ ip address 192.168.3.9 255.255.255.248
+ standby version 2
+ standby 200 ip 192.168.3.11
+ standby 200 priority 150
+ standby 200 preempt
+!
+interface Vlan300
+ mac-address 0005.5e6c.e603
+ ip address 192.168.3.17 255.255.255.248
+ standby version 2
+ standby 300 ip 192.168.3.19
+ standby 300 priority 150
+ standby 300 preempt
+!
+interface Vlan401
+ mac-address 0005.5e6c.e604
+ ip address 192.168.3.25 255.255.255.248
+ standby version 2
+ standby 401 ip 192.168.3.27
+ standby 401 priority 50
+!
+interface Vlan500
+ mac-address 0005.5e6c.e605
+ ip address 192.168.3.33 255.255.255.248
+ standby version 2
+ standby 500 ip 192.168.3.35
+ standby 500 priority 50
+!
+router ospf 1
+ log-adjacency-changes
+ passive-interface Vlan100
+ passive-interface Vlan200
+ passive-interface Vlan300
+ passive-interface Vlan500
+ network 192.168.3.0 0.0.0.255 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ logging synchronous
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+!
+end
+
