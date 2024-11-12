@@ -1,0 +1,220 @@
+!
+version 12.2(37)SE1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname HQ_DSW2
+!
+!
+!
+ip dhcp excluded-address 192.168.1.1 192.168.1.4
+ip dhcp excluded-address 192.168.1.9 192.168.1.12
+ip dhcp excluded-address 192.168.1.17 192.168.1.20
+ip dhcp excluded-address 192.168.1.25 192.168.1.28
+ip dhcp excluded-address 192.168.1.33 192.168.1.36
+ip dhcp excluded-address 192.168.1.49 192.168.1.52
+!
+ip dhcp pool vlan10
+ network 192.168.1.0 255.255.255.248
+ default-router 192.168.1.3
+ip dhcp pool vlan20
+ network 192.168.1.8 255.255.255.248
+ default-router 192.168.1.11
+ip dhcp pool vlan30
+ network 192.168.1.16 255.255.255.248
+ default-router 192.168.1.19
+ip dhcp pool vlan40
+ network 192.168.1.24 255.255.255.248
+ default-router 192.168.1.27
+ip dhcp pool vlan50
+ network 192.168.1.32 255.255.255.248
+ default-router 192.168.1.35
+ip dhcp pool vlan60
+ network 192.168.1.48 255.255.255.240
+ default-router 192.168.1.51
+ option 43 ip 192.168.1.52
+!
+!
+ip routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree vlan 40,50,60,99 priority 0
+spanning-tree vlan 1,10,20,30 priority 4096
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode desirable
+!
+interface FastEthernet0/2
+ switchport trunk allowed vlan 20,30,50,60
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/3
+ switchport trunk allowed vlan 10,40,60
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/4
+ no switchport
+ ip address 10.10.10.5 255.255.255.252
+ ip ospf network point-to-point
+ ip ospf priority 1
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/5
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode desirable
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 00e0.a3d3.3601
+ ip address 192.168.1.2 255.255.255.248
+ standby version 2
+ standby 10 ip 192.168.1.3
+ standby 10 priority 50
+!
+interface Vlan20
+ mac-address 00e0.a3d3.3602
+ ip address 192.168.1.10 255.255.255.248
+ standby version 2
+ standby 20 ip 192.168.1.11
+ standby 20 priority 50
+!
+interface Vlan30
+ mac-address 00e0.a3d3.3603
+ ip address 192.168.1.18 255.255.255.248
+ standby version 2
+ standby 30 ip 192.168.1.19
+ standby 30 priority 50
+!
+interface Vlan40
+ mac-address 00e0.a3d3.3604
+ ip address 192.168.1.26 255.255.255.248
+ standby version 2
+ standby 40 ip 192.168.1.27
+ standby 40 priority 150
+ standby 40 preempt
+!
+interface Vlan50
+ mac-address 00e0.a3d3.3605
+ ip address 192.168.1.34 255.255.255.248
+ standby version 2
+ standby 50 ip 192.168.1.35
+ standby 50 priority 150
+ standby 50 preempt
+!
+interface Vlan60
+ mac-address 00e0.a3d3.3606
+ ip address 192.168.1.50 255.255.255.240
+ standby version 2
+ standby 60 ip 192.168.1.51
+ standby 60 priority 150
+ standby 60 preempt
+!
+router ospf 1
+ log-adjacency-changes
+ passive-interface Vlan10
+ passive-interface Vlan20
+ passive-interface Vlan30
+ passive-interface Vlan40
+ passive-interface Vlan50
+ network 192.168.1.0 0.0.0.255 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ logging synchronous
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+!
+end
+
